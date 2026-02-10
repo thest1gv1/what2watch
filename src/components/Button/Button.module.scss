@@ -1,0 +1,13 @@
+@use '../../styles/helpers' as *;
+
+.button{
+  @include fluid-text(24,18);
+
+  padding: 0 24px;
+
+  background-image: var(--gradient);
+  border: none;
+
+  height: 44px;
+  border-radius: 8px;
+}

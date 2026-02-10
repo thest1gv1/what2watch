@@ -1,0 +1,76 @@
+// Брейкпоинты
+$laptop: 1440px;
+$tablet: 1024px;
+$mobile: 768px;
+$mobile-s: 480px;
+
+// ---------------------------
+// Миксины для медиазапросов
+// ---------------------------
+
+@mixin laptop-above {
+  @media (min-width: $laptop + 1) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin tablet-above {
+  @media (min-width: $tablet + 1) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin mobile-above {
+  @media (min-width: $mobile + 1) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin mobile-s-above {
+  @media (min-width: $mobile-s + 1) {
+    @content;
+  }
+}
+
+@mixin mobile-s {
+  @media (max-width: $mobile-s) {
+    @content;
+  }
+}
+
+// ---------------------------
+// Миксин hover / active
+// ---------------------------
+@mixin hover($hasActiveEffectOnMobile: true) {
+  @media (any-hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+
+  @if $hasActiveEffectOnMobile {
+    @media (any-hover: none) {
+      &:active {
+        @content;
+      }
+    }
+  }
+}
