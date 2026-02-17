@@ -1,14 +1,34 @@
-.hero{
+.hero {
+  position: relative;
   display: grid;
-  gap: 45px;
+  gap: 70px;
 }
 
-.heroInfo{
+.heroHeader {
+
+  justify-content: space-between;
+}
+
+.heroText {
   display: grid;
   gap: 16px;
+  z-index: 32;
 }
 
-.buttonHome{
+.backdrop {
+  position: absolute;
+  max-width: 50%;
+  max-height: 500px;
+  object-fit: cover;
+  top: 0; /* отступ сверху */
+  right: 0;
+}
+
+.backdropWrapper {
+
+}
+
+.buttonHome {
   display: block;
   margin: 0 auto;
 

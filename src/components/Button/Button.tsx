@@ -1,23 +1,18 @@
 import styles from './Button.module.scss'
-import {type FC} from "react";
 import * as React from "react";
+import clsx from "clsx"
 
-type MyComponentProps = {
-  className?: string;
-  children: React.ReactNode;
+type ButtonProps = React.ComponentPropsWithoutRef<"button">;
 
-}
-
-const Button: FC<MyComponentProps> = (props) => {
-  const {
-    children,
-    className = "",
-
-  } = props
-
+const Button = ({children, className, ...props}: ButtonProps) => {
 
   return (
-    <button className={`${styles.button} ${className}`}>{children}</button>
+    <button
+      {...props}
+      className={clsx(styles.button, className,)}
+    >
+      {children}
+    </button>
   )
 }
 

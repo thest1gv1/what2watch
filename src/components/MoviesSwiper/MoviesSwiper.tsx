@@ -1,50 +1,62 @@
 // Import Swiper React components
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {EffectCoverflow, Navigation, Autoplay} from "swiper/modules";
-import {movies} from "../../data/movies.ts";
+
 
 import styles from './MoviesSwiper.module.scss'
 
-// Import Swiper styles
+export type Movie = {
+  backdrop_path: string | undefined;
+  id: number,
+  title: string,
+  poster_path: string,
+}
 
+export type MoviesListProps = {
+  movies: Movie[],
+  onSlideChange: any
+}
 
-const MoviesSwiper = () => {
-
+const MoviesSwiper = ({movies, onSlideChange}: MoviesListProps) => {
   return (
     <Swiper
       className={styles.swiper}
-      effect={"coverflow"}
-      centeredSlides={true}
-      spaceBetween={-10}
-      autoplay={{
-        delay: 3500,
-        disableOnInteraction: false,
+      onInit={(swiper) => {
+        setTimeout(() => {
+          swiper.slideNext(0)
+          swiper.autoplay.start();
+        }, 100);
       }}
+      effect={"coverflow"}
+      centeredSlides
+      loop
+      spaceBetween={-10}
+      autoplay={{delay: 3000, disableOnInteraction: false,}}
+      observeParents={true}
+      loopAdditionalSlides={1}
       slidesPerView="auto"
       coverflowEffect={
         {
-          rotate: 0,
+          rotate: 5,
           stretch: 0,
-          depth: 110,
+          depth: 50,
           modifier: 2.5,
         }
       }
-      modules={[EffectCoverflow, Navigation, Autoplay]}
-      loop={true}
+      modules={[EffectCoverflow, Navigation, Autoplay,]}
       // onSlideChange={(swiper) => console.log('Активный слайд:', swiper.realIndex)}
-      // onSwiper={(swiper) => console.log(swiper)}
-
+      onSlideChange={onSlideChange}
+      onSwiper={(swiper) => console.log(swiper)}
     >
-      {movies.map((movie) => {
+      {movies.map((m) => {
         return <SwiperSlide
           className={styles.swiperSlide}
-          key={movie.id}
+          key={m.id}
         >
           <img
             className={styles.swiperImage}
-            src={movie.poster_path}
-            alt={movie.title}
-            loading="lazy"
+            src={`https://image.tmdb.org/t/p/w500${m.poster_path}`}
+            alt={m.title}
           />
         </SwiperSlide>;
       })}
