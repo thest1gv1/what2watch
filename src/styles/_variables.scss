@@ -2,9 +2,32 @@
   --container-width: clamp(1600px, 70vw, 1600px);
   --container-padding-x: clamp(24px, 3.5vw, 48px);
 
+  --font-primary: "Rubik", sans-serif;
+  --font-secondary: "Commissioner", sans-serif;
 
   --color-white: #ffffff;
   --color-black: #000000;
+  --color-accent:#ec124e;
+  --color-accent-hover: #b70e3c;
+
+  --color-accent-active-card: rgba(236, 18, 78, 0.1);
+
+  --color-hover-card: #181818;
+
+  --gray-100: #0c0c0d;  /* тёмный фон секций */
+  --gray-200: #2a2a2d;  /* слегка светлее, для карточек */
+  --gray-300: #38383c;  /* бордеры, разделители */
+  --gray-400: #4a4a4f;  /* второстепенный текст / placeholder */
+  --gray-500: #6c6c70;  /* основной текст средней насыщенности */
+  --gray-600: #8a8a8f;  /* вспомогательный текст / info */
+  --gray-700: #b0b0b5;  /* яркий текст / hover / выделение */
+  --gray-800: #d0d0d4;  /* иконки / акценты */
+  --gray-900: #f0f0f3;
+
+  --border-radius-m: 60px;
+  --border-radius: 30px;
+  --border-radius-s: 16px;
+  --border-radius-xs: 8px;
 
 //  --color-accent: #FF6363;
 //  --color-secondary: #E7FAFE;
@@ -15,18 +38,14 @@
 //  --color-gray-600: rgb(0 0 0 / 0.6);
 //  --color-gray-alt: #DBE2E5;
 
-  --gradient: linear-gradient(45deg, rgb(242, 244, 82), rgb(180, 253, 100) 64%);
+//  --gradient: linear-gradient(45deg, rgb(242, 244, 82), rgb(180, 253, 100) 64%);
 
-  --font-primary: "Rubik", sans-serif;
-  --font-secondary: "Commissioner", sans-serif;
+
 
 //  --gradient: linear-gradient(180deg, rgba(231, 249, 253, 0) 0%, var(--color-brand) 100%);
 //  --drop-shadow: 10px 20px 40px rgba(41, 64, 70, 0.10);
 
-//  --border-radius-m: 60px;
-//  --border-radius: 30px;
-//  --border-radius-s: 16px;
-//  --border-radius-xs: 8px;
+
 
 
 

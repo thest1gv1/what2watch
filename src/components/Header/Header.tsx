@@ -1,8 +1,14 @@
+import styles from './Header.module.scss'
+import {Link} from "react-router-dom";
 
 const Header = () => {
   return (
     <header className='container'>
-      <h3>What2Watch</h3>
+      <div className={styles.header}>
+        <Link to={'/'}>
+          <span className={styles.logo}>What2Watch</span>
+        </Link>
+      </div>
     </header>
   )
 }

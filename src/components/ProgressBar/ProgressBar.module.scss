@@ -1,0 +1,27 @@
+.progress {
+  display: grid;
+  gap: 10px;
+}
+
+.progressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--gray-600);
+}
+
+.progressFill {
+  //  width: 20%;               /* тут и задаём те самые 20% */
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: inherit;
+  transition: width 0.3s ease
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--gray-200);
+  border-radius: 999px;
+  overflow: hidden;
+}

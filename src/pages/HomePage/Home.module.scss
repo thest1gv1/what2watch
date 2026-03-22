@@ -1,0 +1,36 @@
+.hero {
+//  position: relative;
+//  height: 95vh;
+  display: grid;
+  gap: 40px;
+}
+
+.heroHeader {
+  display: flex;
+  gap: 60px;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 24px;
+}
+
+.backdrop {
+  max-width: 750px;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: var(--border-radius-s);
+}
+
+.backdropWrapper {
+
+}
+
+.buttonHome {
+
+
+}

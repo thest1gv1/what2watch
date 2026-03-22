@@ -1,0 +1,86 @@
+.answerItem {
+  :hover {
+    background-color: var(--color-hover-card);
+  }
+
+}
+
+.option {
+  padding: 32px 24px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--border-radius-xs);
+  background-color: var(--gray-100);
+  transition-duration: var(--transition-duration);
+}
+
+.option:has(input:checked) {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-active-card);
+
+}
+
+.option:hover .arrow svg {
+  stroke: var(--color-accent); /* цвет при наведении на карточку */
+}
+
+
+.input {
+  position: absolute; /* убираем из потока */
+  opacity: 0; /* делаем невидимым */
+  width: 0;
+  height: 0;
+
+  :hover {
+    color: var(--color-accent);
+  }
+}
+
+
+.labelInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  margin-right: auto;
+  pointer-events: none;
+}
+
+.emoji {
+  font-size: 32px;
+}
+
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: var(--gray-200);
+}
+
+.checkbox {
+  display: flex; // превращаем в flex-контейнер
+  align-items: center; // центр по вертикали
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--gray-300); // цвет рамки квадрата
+  border-radius: 6px; // слегка закругленный квадрат
+  background: transparent;
+  margin-left: 8px;
+  pointer-events: none;
+}
+
+.checkbox.checked{
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+
+}
+
+.checkbox svg {
+  stroke: var(--color-white); // цвет линии
+
+}

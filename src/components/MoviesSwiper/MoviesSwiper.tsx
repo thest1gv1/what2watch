@@ -1,52 +1,43 @@
 // Import Swiper React components
+import type {Movies} from "../../types/movies.ts";
+import type { Swiper as SwiperType } from "swiper"
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {EffectCoverflow, Navigation, Autoplay} from "swiper/modules";
-
-
+import {EffectCoverflow, Autoplay} from "swiper/modules";
 import styles from './MoviesSwiper.module.scss'
 
-export type Movie = {
-  backdrop_path: string | undefined;
-  id: number,
-  title: string,
-  poster_path: string,
-}
-
 export type MoviesListProps = {
-  movies: Movie[],
-  onSlideChange: any
+  movies: Movies[],
+  onSlideChange: (swiper: SwiperType) => void
 }
 
 const MoviesSwiper = ({movies, onSlideChange}: MoviesListProps) => {
   return (
     <Swiper
       className={styles.swiper}
-      onInit={(swiper) => {
+      onSwiper={(swiper) => {
         setTimeout(() => {
-          swiper.slideNext(0)
-          swiper.autoplay.start();
+          swiper.autoplay?.start();
         }, 100);
       }}
-      effect={"coverflow"}
-      centeredSlides
-      loop
-      spaceBetween={-10}
-      autoplay={{delay: 3000, disableOnInteraction: false,}}
-      observeParents={true}
-      loopAdditionalSlides={1}
+      effect="coverflow"
+      loop={movies.length > 1} // включаем loop только если больше 1 фильма
+      centeredSlides={true}
+      centeredSlidesBounds={true}
       slidesPerView="auto"
-      coverflowEffect={
-        {
-          rotate: 5,
-          stretch: 0,
-          depth: 50,
-          modifier: 2.5,
-        }
-      }
-      modules={[EffectCoverflow, Navigation, Autoplay,]}
-      // onSlideChange={(swiper) => console.log('Активный слайд:', swiper.realIndex)}
+      spaceBetween={-45}
+      coverflowEffect={{
+        rotate: 10,
+        stretch: -45,
+        depth: 70,
+        modifier: 1,
+        slideShadows: true,
+      }}
+      autoplay={{
+        delay: 1500,
+        disableOnInteraction: false,
+      }}
+      modules={[EffectCoverflow, Autoplay]}
       onSlideChange={onSlideChange}
-      onSwiper={(swiper) => console.log(swiper)}
     >
       {movies.map((m) => {
         return <SwiperSlide
@@ -55,7 +46,7 @@ const MoviesSwiper = ({movies, onSlideChange}: MoviesListProps) => {
         >
           <img
             className={styles.swiperImage}
-            src={`https://image.tmdb.org/t/p/w500${m.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w300${m.poster_path}`}
             alt={m.title}
           />
         </SwiperSlide>;

@@ -2,12 +2,22 @@
 
 .button{
   @include fluid-text(24,18);
-
-  padding: 0 24px;
-
-  background-image: var(--gradient);
+  padding: 0 28px;
+  color: var(--color-white);
+  background-color: var(--color-accent);
   border: none;
+  height: 48px;
+  border-radius: var(--border-radius-xs);
+  transition-duration: var(--transition-duration);
 
-  height: 44px;
-  border-radius: 8px;
+  &:hover{
+    background: var(--color-accent-hover);
+  }
+
+  &:disabled{
+    background: var(--gray-200);
+    color: var(--gray-500);
+    pointer-events: none;
+  }
 }
+
