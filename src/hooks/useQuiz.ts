@@ -2,7 +2,7 @@ import {useState, useMemo} from "react";
 import type {Questions} from "../types/questions.ts";
 
 
-export type Answers = Record<number, string[]>; // как у тебя было
+export type Answers = Record<string, string[]>; // как у тебя было
 
 export function useQuiz(questions: Questions[]) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -26,20 +26,21 @@ export function useQuiz(questions: Questions[]) {
   // Сохраняем ответ 11111111111111111111111111111111111111111111111111111111111111111
   const handleAnswerChange = (option: string) => {
     const question = questions[currentStep];
+    const questionId = question.id;
 
     if (question.multiSelect) {
       // Множественный выбор
       setAnswers(prev => {
-        const prevArr = prev[currentStep] ?? [];
+        const prevArr = prev[questionId] ?? [];
         const newArr  = prevArr.includes(option)
           ? prevArr.filter(v => v !== option)
           : [...prevArr, option];
-        return { ...prev, [currentStep]: newArr };
+        return { ...prev, [questionId]: newArr };
       });
       // НЕ вызываем handleNext для мультиселекта
     } else {
       // Одиночный выбор
-      setAnswers(prev => ({ ...prev, [currentStep]: [option] }));
+      setAnswers(prev => ({ ...prev, [questionId]: [option] }));
       handleNext(); // сразу переходим
     }
   };

@@ -22,7 +22,7 @@ const Quiz = () => {
     useQuiz(questions);
 
 
-  const hasAnswer = answers[currentStep]?.length > 0
+  const hasAnswer = (answers[currentQuestion.id]?.length ?? 0) > 0
 
   return (
     <section>
@@ -48,7 +48,7 @@ const Quiz = () => {
 
         <QuestionCardList
           options={currentQuestion.options}
-          answers={answers[currentStep]}
+          answers={answers[currentQuestion.id] || []}
           currentQuestion={currentQuestion}
           handleAnswerChange={handleAnswerChange}
           handleNext={handleNext}

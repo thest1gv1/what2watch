@@ -3,7 +3,7 @@ import type {Questions} from "../types/questions.ts";
 
 export const questions: Questions[] = [
   {
-    id: '1',
+    id: 'mood',
     question: "Какое у вас настроение сейчас?",
     multiSelect: false,
     options: [
@@ -14,7 +14,7 @@ export const questions: Questions[] = [
     ]
   },
   {
-    id: '2',
+    id: 'company',
     question: "С кем смотрите?",
     multiSelect: false,
     options: [
@@ -25,7 +25,7 @@ export const questions: Questions[] = [
     ]
   },
   {
-    id: '3',
+    id: 'genres',
     question: 'Какие жанры вам интересны?',
     multiSelect: true,
     options: [
@@ -42,7 +42,7 @@ export const questions: Questions[] = [
     ],
   },
   {
-    id: '4',
+    id: 'duration',
     question: "Сколько времени есть?",
     multiSelect: false,
     options: [

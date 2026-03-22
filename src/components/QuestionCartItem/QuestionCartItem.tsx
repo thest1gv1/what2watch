@@ -23,9 +23,7 @@ const QuestionCartItem =
    }: QuestionCartItemProps) => {
     const {value, label, emoji} = option;
 
-    const isSelected = Array.isArray(answers)
-      ? answers.includes(value)
-      : answers === value;
+    const isSelected = answers.includes(value)
 
     return (
       <li
