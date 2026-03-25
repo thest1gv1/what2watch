@@ -1,12 +1,14 @@
 import {useState, useMemo} from "react";
 import type {Questions} from "../types/questions.ts";
+import type {Answers} from "../types/answers.ts";
 
 
-export type Answers = Record<string, string[]>; // как у тебя было
+; // как у тебя было
 
 export function useQuiz(questions: Questions[]) {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
+  const [quizFinished, setQuizFinished] = useState(false);
 
   // Текущий вопрос
   const currentQuestion = useMemo(() => questions[currentStep], [questions, currentStep]);
@@ -32,16 +34,25 @@ export function useQuiz(questions: Questions[]) {
       // Множественный выбор
       setAnswers(prev => {
         const prevArr = prev[questionId] ?? [];
-        const newArr  = prevArr.includes(option)
+        const newArr = prevArr.includes(option)
           ? prevArr.filter(v => v !== option)
           : [...prevArr, option];
-        return { ...prev, [questionId]: newArr };
+        return {...prev, [questionId]: newArr};
       });
       // НЕ вызываем handleNext для мультиселекта
+      // } else {
+      //   // Одиночный выбор
+
+      //   // handleNext(); // сразу переходим
+      return
+    }
+
+    setAnswers(prev => ({...prev, [questionId]: [option]}));
+
+    if (currentStep === questions.length - 1) {
+      setQuizFinished(true)
     } else {
-      // Одиночный выбор
-      setAnswers(prev => ({ ...prev, [questionId]: [option] }));
-      handleNext(); // сразу переходим
+      handleNext()
     }
   };
 
@@ -50,6 +61,7 @@ export function useQuiz(questions: Questions[]) {
     answers,
     currentQuestion,
     progress,
+    quizFinished,
     handleNext,
     handleBack,
     handleAnswerChange,
