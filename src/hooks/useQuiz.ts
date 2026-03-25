@@ -3,7 +3,7 @@ import type {Questions} from "../types/questions.ts";
 import type {Answers} from "../types/answers.ts";
 
 
-; // как у тебя было
+
 
 export function useQuiz(questions: Questions[]) {
   const [currentStep, setCurrentStep] = useState(0);
