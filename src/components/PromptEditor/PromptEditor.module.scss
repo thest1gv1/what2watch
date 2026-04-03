@@ -1,35 +1,4 @@
-.quiz {
-  display: grid;
-  gap: 40px;
-  //  justify-content: center;
-  //  max-width: 70%;
-}
-
-.header {
-  display: grid;
-  gap: 10px;
-  text-align: center;
-}
-
-.infoQuestion {
-  display: grid;
-  row-gap: 4px;
-}
-
-.descriptionQuestion {
-  font-size: 18px;
-  color: var(--gray-600);
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  column-gap: 20px;
-}
-
-
-.promt {
+.prompt {
   width: 100%;
   max-width: 800px; // вот ключевая строка
   margin: 0 auto; // центрирует по горизонтали
@@ -41,7 +10,7 @@
 }
 
 
-.promtInfo {
+.promptInfo {
   display: grid;
   gap: 4px;
   text-align: center;
@@ -60,25 +29,5 @@
     border: 2px solid var(--color-accent);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

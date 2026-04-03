@@ -1,7 +1,7 @@
-import Home from "./pages/HomePage/Home.tsx";
+import HomePage from "./pages/HomePage/HomePage.tsx";
 import {HashRouter as Router, Routes, Route} from 'react-router-dom';
 import Header from "./components/Header/Header.tsx";
-import Quiz from "./pages/QuizPage/Quiz.tsx";
+import QuizPage from "./pages/QuizPage/QuizPage.tsx";
 
 function App() {
 
@@ -10,8 +10,8 @@ function App() {
       <Header/>
       <main className='container'>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/quiz" element={<QuizPage />} />
         </Routes>
       </main>
     </Router>

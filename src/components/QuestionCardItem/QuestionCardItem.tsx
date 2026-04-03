@@ -1,26 +1,28 @@
-import styles from "./QuestionCartItem.module.scss";
+import styles from "./QuestionCardItem.module.scss";
 import {ArrowRight, Check} from "lucide-react";
 import type {Options} from "../../types/questions.ts";
 import clsx from "clsx";
 
 
-type QuestionCartItemProps = {
+type QuestionCardItemProps = {
+  id: string,
   multiSelect: boolean,
   answers: string | string[],
   option: Options,
   handleAnswerChange: (value: string, checked?: boolean) => void;
-  handleNext: any
+  handleNext: () => void
 }
 
-const QuestionCartItem =
+const QuestionCardItem =
   ({
+     id,
      multiSelect,
      answers,
      option,
      handleAnswerChange,
      handleNext
 
-   }: QuestionCartItemProps) => {
+   }: QuestionCardItemProps) => {
     const {value, label, emoji} = option;
 
     const isSelected = answers.includes(value)
@@ -34,7 +36,7 @@ const QuestionCartItem =
           <input
             className={styles.input}
             type={multiSelect ? "checkbox" : "radio"}
-            name="mood"
+            name={id}
             value={value}
             checked={isSelected}
             onChange={() => handleAnswerChange(value)}
@@ -65,4 +67,4 @@ const QuestionCartItem =
     )
   }
 
-export default QuestionCartItem
+export default QuestionCardItem

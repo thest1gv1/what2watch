@@ -1,0 +1,64 @@
+@use '../../styles/helpers' as *;
+
+.hero {
+  //  position: relative;
+  //  height: 95vh;
+  display: grid;
+  gap: 40px;
+}
+
+.heroHeader {
+  display: flex;
+  gap: 60px;
+  align-items: start;
+  justify-content: space-between;
+
+  @include tablet {
+    position: relative;
+    min-height: 400px;
+    align-items: flex-end;
+    padding-bottom: 32px;
+  }
+
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 24px;
+
+  @include tablet {
+    position: relative;
+    z-index: 1;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.backdrop {
+  max-width: 750px;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: var(--border-radius-s);
+
+  @include tablet {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: var(--border-radius-s);
+    opacity: 0.3;
+  }
+}
+
+.backdropWrapper {
+
+}
+
+.buttonHome {
+
+
+}

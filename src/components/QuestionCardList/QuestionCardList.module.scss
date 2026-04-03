@@ -1,5 +1,12 @@
+@use '../../styles/helpers' as *;
+
 .answersList {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
+
+  @include tablet {
+    display: flex;
+    flex-direction: column;
+  }
 }

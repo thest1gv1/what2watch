@@ -3,12 +3,13 @@ import type {Questions} from "../types/questions.ts";
 import type {Answers} from "../types/answers.ts";
 
 
-
+type Step = 'quiz' | 'prompt' | 'results'
 
 export function useQuiz(questions: Questions[]) {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
-  const [quizFinished, setQuizFinished] = useState(false);
+
+  const [step, setStep] = useState<Step>('quiz')
 
   // Текущий вопрос
   const currentQuestion = useMemo(() => questions[currentStep], [questions, currentStep]);
@@ -25,13 +26,13 @@ export function useQuiz(questions: Questions[]) {
 
   const handleBack = () => setCurrentStep(prev => Math.max(prev - 1, 0));
 
-  // Сохраняем ответ 11111111111111111111111111111111111111111111111111111111111111111
+
   const handleAnswerChange = (option: string) => {
     const question = questions[currentStep];
     const questionId = question.id;
 
     if (question.multiSelect) {
-      // Множественный выбор
+
       setAnswers(prev => {
         const prevArr = prev[questionId] ?? [];
         const newArr = prevArr.includes(option)
@@ -39,31 +40,34 @@ export function useQuiz(questions: Questions[]) {
           : [...prevArr, option];
         return {...prev, [questionId]: newArr};
       });
-      // НЕ вызываем handleNext для мультиселекта
-      // } else {
-      //   // Одиночный выбор
-
-      //   // handleNext(); // сразу переходим
       return
     }
 
     setAnswers(prev => ({...prev, [questionId]: [option]}));
 
     if (currentStep === questions.length - 1) {
-      setQuizFinished(true)
+      setStep('prompt')
     } else {
       handleNext()
     }
   };
+
+  const handleRetry = () => {
+    setStep('quiz')
+    setCurrentStep(0)
+    setAnswers({})
+  }
 
   return {
     currentStep,
     answers,
     currentQuestion,
     progress,
-    quizFinished,
+    step,
+    setStep,
     handleNext,
     handleBack,
     handleAnswerChange,
+    handleRetry,
   };
 }

@@ -1,23 +1,22 @@
 import type {Questions} from "../types/questions.ts";
 import type {Answers} from "../types/answers.ts";
 
+
 export const getAIPrompt = (answers: Answers, questions: Questions[]) => {
-
-
-  let prompt = "Подбери фильм с такими параметрами:\n";
+  let userPrompt = "Подбери фильм с такими параметрами:\n";
 
   for (const [id, values] of Object.entries(answers)) {
     const question = questions.find(q => q.id === id);
-    if (!question) continue; // на всякий случай
+    if (!question) continue;
 
-    // превращаем выбранные value в label для текста
     const labels = values
       .map(v => question.options.find(opt => opt.value === v)?.label ?? v)
       .join(", ");
 
-    prompt += `${question.question}: ${labels}\n`;
+    userPrompt += `${question.question}: ${labels}\n`;
   }
 
-  prompt += "\nПредложи 5 фильмов с кратким описанием.";
-  return prompt;
-}
+  const systemInstruction = `\nПредложи ровно 5 фильмов.\nВерни ТОЛЬКО валидный JSON массив. Никакого текста до и после, никакого markdown.\nФормат: [{"title":"Название на русском","originalTitle":"Original Title","year":2021,"genre":"Жанр","description":"Краткое описание"}]`;
+
+  return {userPrompt, systemInstruction};
+};

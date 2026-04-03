@@ -1,5 +1,8 @@
-.swiper{
+@use '../../styles/helpers' as *;
+
+.swiper {
   width: 100%;
+  position: relative;
 }
 
 .swiper::before,
@@ -7,28 +10,39 @@
   content: '';
   position: absolute;
   top: 0;
-  width: 111px;
+  width: 60px;
   height: 100%;
   z-index: 20;
   pointer-events: none;
+
+  @include mobile {
+    display: none;
+  }
 }
 
-.swiper::before { /* Левое затухание */
+.swiper::before {
   left: 0;
-  background: linear-gradient(to right, rgba(0,0,0,1.8), transparent);
+  background: linear-gradient(to right, black, transparent);
 }
 
-.swiper::after { /* Правое затухание */
+.swiper::after {
   right: 0;
-  background: linear-gradient(to left, rgba(0,0,0,1.8), transparent);
+  background: linear-gradient(to left, black, transparent);
 }
 
-.swiperSlide{
+.swiperSlide {
   width: 200px;
+
+  @include tablet {
+    width: 180px;
+  }
+
+  @include mobile {
+    width: 110px;
+  }
 }
 
-.swiperImage{
+.swiperImage {
   border-radius: var(--border-radius-s);
   width: 100%;
-
 }

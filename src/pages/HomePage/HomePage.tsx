@@ -4,11 +4,11 @@ import Button from "../../components/Button/Button.tsx";
 import {useEffect, useState, type SetStateAction} from "react";
 import {useNavigate} from "react-router-dom";
 import getSwiperMovies from '../../api/moviesAPI.ts';
-import styles from './Home.module.scss';
+import styles from './HomePage.module.scss';
 
 
 
-const Home = () => {
+const HomePage = () => {
 
   const navigate = useNavigate()
 
@@ -60,4 +60,4 @@ const Home = () => {
 }
 
 
-export default Home
+export default HomePage

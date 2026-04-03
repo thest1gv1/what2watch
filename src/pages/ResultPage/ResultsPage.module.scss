@@ -1,0 +1,38 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.header {
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.movieList {
+  display: grid;
+  gap: 16px;
+}
+
+.movieCard {
+  display: grid;
+  gap: 8px;
+  padding: 24px;
+  background-color: var(--gray-200);
+  border-radius: var(--border-radius-s);
+}
+
+.movieMeta {
+  display: flex;
+  gap: 12px;
+  color: var(--gray-600);
+  font-size: 14px;
+}
+
+.movieDescription {
+  color: var(--gray-600);
+  margin: 0;
+}
+

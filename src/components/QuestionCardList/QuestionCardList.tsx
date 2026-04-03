@@ -1,18 +1,19 @@
 import styles from "./QuestionCardList.module.scss";
 
 import type {Options} from "../../types/questions.ts";
-import QuestionCartItem from "../QuestionCartItem/QuestionCartItem.tsx";
+import QuestionCardItem from "../QuestionCardItem/QuestionCardItem.tsx";
 
 
 type QuestionCardListProps = {
   options: Options[]
   answers: string | string[]
   currentQuestion: {
+    id: string,
     question: string
     multiSelect: boolean
   }
   handleAnswerChange: (value: string) => void
-  handleNext:any
+  handleNext: () => void
 
 }
 
@@ -28,8 +29,9 @@ const QuestionCardList =
     return (
       <ul className={styles.answersList}>
         {options.map(option =>
-          <QuestionCartItem
+          <QuestionCardItem
             key={option.value}
+            id={currentQuestion.id}
             multiSelect={currentQuestion.multiSelect}
             answers={answers}
             option={option}
