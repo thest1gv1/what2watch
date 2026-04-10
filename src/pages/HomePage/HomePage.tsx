@@ -3,9 +3,8 @@ import MoviesSwiper from "../../components/MoviesSwiper/MoviesSwiper.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {useEffect, useState, type SetStateAction} from "react";
 import {useNavigate} from "react-router-dom";
-import getSwiperMovies from '../../api/moviesAPI.ts';
+import {getSwiperMoviesTrending} from '../../api/moviesAPI.ts';
 import styles from './HomePage.module.scss';
-
 
 
 const HomePage = () => {
@@ -18,7 +17,7 @@ const HomePage = () => {
   const activeMovie = swiperMovies[activeIndex]
 
   useEffect(() => {
-    getSwiperMovies().then(setSwiperMovies)
+    getSwiperMoviesTrending().then(setSwiperMovies)
   }, []);
 
 
@@ -51,8 +50,6 @@ const HomePage = () => {
           realIndex: SetStateAction<number>;
         }) => setActiveIndex(swiper.realIndex)}
       />
-
-
 
 
     </section>

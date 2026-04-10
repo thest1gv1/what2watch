@@ -16,7 +16,7 @@ export const getAIPrompt = (answers: Answers, questions: Questions[]) => {
     userPrompt += `${question.question}: ${labels}\n`;
   }
 
-  const systemInstruction = `\nПредложи ровно 5 фильмов.\nВерни ТОЛЬКО валидный JSON массив. Никакого текста до и после, никакого markdown.\nФормат: [{"title":"Название на русском","originalTitle":"Original Title","year":2021,"genre":"Жанр","description":"Краткое описание"}]`;
+  const systemInstruction = `\nПредложи ровно 6 фильмов.\nВерни ТОЛЬКО валидный JSON массив. Никакого текста до и после, никакого markdown.\nФормат: [{"title":"Название на русском","originalTitle":"Original Title","year":2021,"genre":"Жанр","description":"Краткое описание"}]`;
 
   return {userPrompt, systemInstruction};
 };
