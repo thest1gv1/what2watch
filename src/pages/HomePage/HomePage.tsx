@@ -17,7 +17,7 @@ const HomePage = () => {
   const activeMovie = swiperMovies[activeIndex]
 
   async function getSwiperMoviesTrending() {
-    return fetch('http://localhost:3000/movies/trending')
+    return fetch('https://what2watch-backend-production.up.railway.app/movies/trending')
       .then(res => res.json())
   }
 

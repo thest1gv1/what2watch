@@ -49,7 +49,7 @@ const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
     try {
       const fullPrompt = prompt + systemInstruction
 
-      const response = await fetch('http://localhost:3000/movies/recommend', {
+      const response = await fetch('https://what2watch-backend-production.up.railway.app/movies/recommend', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: fullPrompt })
