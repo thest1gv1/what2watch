@@ -4,6 +4,7 @@ import MovieCard from "../../components/MovieCard/MovieCard.tsx";
 
 
 export type Movie = {
+
   title: string
   originalTitle: string
   year: number
@@ -27,11 +28,10 @@ const ResultsPage = ({movies, onRetry}: ResultsPageProps) => {
 
       <ul className={styles.movieList}>
         {movies.map((movie) => (
-
-
-            <MovieCard movie={movie} />
-
-
+          <MovieCard
+            key={movie.originalTitle}
+            movie={movie}
+          />
         ))}
       </ul>
 

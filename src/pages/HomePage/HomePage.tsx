@@ -3,7 +3,7 @@ import MoviesSwiper from "../../components/MoviesSwiper/MoviesSwiper.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {useEffect, useState, type SetStateAction} from "react";
 import {useNavigate} from "react-router-dom";
-import {getSwiperMoviesTrending} from '../../api/moviesAPI.ts';
+
 import styles from './HomePage.module.scss';
 
 
@@ -15,6 +15,11 @@ const HomePage = () => {
   const [activeIndex, setActiveIndex] = useState(0)
 
   const activeMovie = swiperMovies[activeIndex]
+
+  async function getSwiperMoviesTrending() {
+    return fetch('http://localhost:3000/movies/trending')
+      .then(res => res.json())
+  }
 
   useEffect(() => {
     getSwiperMoviesTrending().then(setSwiperMovies)

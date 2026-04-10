@@ -13,6 +13,7 @@ export type MoviesListProps = {
 const MoviesSwiper = ({movies, onSlideChange}: MoviesListProps) => {
   return (
     <Swiper
+      key={movies.length}
       className={styles.swiper}
       onSwiper={(swiper) => {
         setTimeout(() => {
@@ -20,7 +21,7 @@ const MoviesSwiper = ({movies, onSlideChange}: MoviesListProps) => {
         }, 100);
       }}
       effect="coverflow"
-      loop={movies.length > 1} // включаем loop только если больше 1 фильма
+      loop={movies.length >= 6} // включаем loop только если больше 1 фильма
       centeredSlides={true}
       centeredSlidesBounds={true}
       slidesPerView="auto"
@@ -33,7 +34,7 @@ const MoviesSwiper = ({movies, onSlideChange}: MoviesListProps) => {
         slideShadows: true,
       }}
       autoplay={{
-        delay: 1500,
+        delay: 2500,
         disableOnInteraction: false,
       }}
       modules={[EffectCoverflow, Autoplay]}

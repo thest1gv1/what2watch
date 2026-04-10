@@ -5,7 +5,7 @@ import type {Questions} from "../../types/questions.ts";
 import {useEffect, useState} from "react";
 import {getAIPrompt} from "../../utils/getAIPrompt.ts";
 import type {Movie} from "../../pages/ResultPage/ResultPage.tsx";
-import {getMoviePoster} from "../../api/moviesAPI.ts";
+
 import {Film} from "lucide-react";
 
 
@@ -49,55 +49,26 @@ const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
     try {
       const fullPrompt = prompt + systemInstruction
 
-
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${import.meta.env.VITE_GEMINI_KEY}`,
-        {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            contents: [{parts: [{text: fullPrompt}]}]
-          })
-        }
-      )
+      const response = await fetch('http://localhost:3000/movies/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: fullPrompt })
+      })
 
       if (response.status === 429) {
         setError('Лимит запросов исчерпан, попробуй через минуту')
         return
       }
+
       if (!response.ok) {
         setError('Сервис временно недоступен, попробуй позже')
         return
       }
 
-      const data = await response.json()
-      const text = data.candidates[0].content.parts[0].text
-
-      if (!text) {
-        setError('Не удалось получить ответ, попробуй ещё раз')
-        return
-      }
-
-      const cleaned = text.replace(/```json|```/g, '').trim()
-
-      let movies
-      try {
-        movies = JSON.parse(cleaned)
-      } catch {
-        setError('Что-то пошло не так, попробуй ещё раз')
-        return
-      }
-
-      const moviesWithPosters = await Promise.all(
-        movies.map(async (movie: Movie) => ({
-          ...movie,
-          poster_path: await getMoviePoster(movie.originalTitle)
-        }))
-      )
-
-      onSubmit(moviesWithPosters)
-    } catch (e) {
-      console.error(e)
+      const movies = await response.json()
+      onSubmit(movies)
+    } catch {
+      setError('Нет соединения с интернетом')
     } finally {
       setLoading(false)
     }
