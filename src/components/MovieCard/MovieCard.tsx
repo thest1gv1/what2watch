@@ -10,7 +10,7 @@ const MovieCard = ({movie}: {movie: Movie}) => {
       {movie.poster_path && (
         <img
           className={styles.poster}
-          src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+          src={`https://what2watch-backend-production.up.railway.app/movies/poster?path=${movie.poster_path}`}
           alt={movie.title}
         />
       )}
