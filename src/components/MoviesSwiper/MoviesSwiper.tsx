@@ -47,7 +47,7 @@ const MoviesSwiper = ({movies, onSlideChange}: MoviesListProps) => {
         >
           <img
             className={styles.swiperImage}
-            src={`https://image.tmdb.org/t/p/w300${m.poster_path}`}
+            src={`https://what2watch-backend-production.up.railway.app/movies/poster?path=${m.poster_path}&size=w300`}
             alt={m.title}
           />
         </SwiperSlide>;

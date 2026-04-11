@@ -42,7 +42,7 @@ const HomePage = () => {
 
         <img
           className={styles.backdrop}
-          src={`https://image.tmdb.org/t/p/original${activeMovie?.backdrop_path}`}
+          src={`https://what2watch-backend-production.up.railway.app/movies/poster?path=${activeMovie?.backdrop_path}&size=original`}
           alt=""
 
           loading="lazy"
