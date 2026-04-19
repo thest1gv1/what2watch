@@ -29,9 +29,17 @@ const HomePage = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.heroHeader}>
+
+
         <div className={styles.heroText}>
-          <h1 className={styles.title}>Не знаешь что посмотреть сегодня?</h1>
-          <p className={styles.description}>Ответь на несколько вопросов — получи идеальное кино за 30 секунд</p>
+          <div className={styles.badge}>
+            <span className={styles.badgeDot}></span>
+            AI подбор за 30 сек
+          </div>
+          <h1 className={styles.title}>Не знаешь что посмотреть <span className={styles.accent}>сегодня?</span>
+          </h1>
+          <p className={styles.description}>Ответь на несколько вопросов — получи идеальное
+            кино подобранное специально для тебя</p>
           <Button
             className={styles.buttonHome}
             onClick={() => {
@@ -40,15 +48,18 @@ const HomePage = () => {
           >Найди свой фильм</Button>
         </div>
 
-        <img
-          className={styles.backdrop}
-          src={`https://what2watch-backend-production.up.railway.app/movies/poster?path=${activeMovie?.backdrop_path}&size=original`}
-          alt=""
-
-          loading="lazy"
-        />
+        <div className={styles.backdropWrapper}>
+          {activeMovie?.backdrop_path && (
+            <img
+              key={activeMovie.id}
+              className={styles.backdrop}
+              src={`https://what2watch-backend-production.up.railway.app/movies/poster?path=${activeMovie.backdrop_path}&size=original`}
+              alt=""
+            />
+          )}
+        </div>
       </div>
-
+      <p className={styles.trendingLabel}>Сейчас в тренде</p>
       <MoviesSwiper
         movies={swiperMovies}
         onSlideChange={(swiper: {

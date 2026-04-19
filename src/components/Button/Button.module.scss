@@ -1,12 +1,13 @@
 @use '../../styles/helpers' as *;
 
 .button{
-  @include fluid-text(24,18);
+  font-size: 18px;
+  font-weight: 600;
   padding: 0 28px;
   color: var(--color-white);
   background-color: var(--color-accent);
   border: none;
-  height: 48px;
+  height: 58px;
   border-radius: var(--border-radius-xs);
   transition-duration: var(--transition-duration);
 
