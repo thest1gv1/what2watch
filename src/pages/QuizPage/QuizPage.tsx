@@ -1,18 +1,20 @@
 import {questions} from "../../data/questions.ts";
-import styles from './QuizPage.module.scss'
 import Button from "../../components/Button/Button.tsx";
 import {useQuiz} from "../../hooks/useQuiz.ts";
 import ProgressBar from "../../components/ProgressBar/ProgressBar.tsx";
 import QuestionCardList
   from "../../components/QuestionCardList/QuestionCardList.tsx";
 import PromptEditor from "../../components/PromptEditor/PromptEditor.tsx";
-import ResultsPage, {type Movie} from "../ResultPage/ResultPage.tsx";
+
 import {useState} from "react";
+import styles from './QuizPage.module.scss'
+import type {Movies} from "../../types/movies.ts";
+import ResultsPage from "../ResultPage/ResultPage.tsx";
 
 
 const QuizPage = () => {
 
-  const [movies, setMovies] = useState<Movie[]>([])
+  const [movies, setMovies] = useState<Movies[]>([])
 
   const {
     currentStep,
@@ -70,14 +72,14 @@ const QuizPage = () => {
               Назад
             </Button>
 
-            {currentQuestion.multiSelect && (
+
               <Button
                 onClick={handleNext}
-                disabled={!hasAnswer}
+                disabled={!hasAnswer || !currentQuestion.multiSelect}
               >
                 Продолжить
               </Button>
-            )}
+
           </div>
 
         </div>

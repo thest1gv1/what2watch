@@ -1,18 +1,16 @@
-import HomePage from "./pages/HomePage/HomePage.tsx";
-import {HashRouter as Router, Routes, Route} from 'react-router-dom';
+
+import {HashRouter as Router} from 'react-router-dom';
 import Header from "./components/Header/Header.tsx";
-import QuizPage from "./pages/QuizPage/QuizPage.tsx";
+
+import RouterApp from "./router/RouterApp.tsx";
 
 function App() {
 
   return (
     <Router>
-      <Header/>
-      <main className='container'>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/quiz" element={<QuizPage />} />
-        </Routes>
+      <Header />
+      <main className="container">
+        <RouterApp />
       </main>
     </Router>
   );

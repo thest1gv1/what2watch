@@ -1,12 +1,13 @@
 // Import Swiper React components
-import type {Movies} from "../../types/movies.ts";
+import type {TmdbMovie} from "../../types/movies.ts";
 import type { Swiper as SwiperType } from "swiper"
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {EffectCoverflow, Autoplay} from "swiper/modules";
 import styles from './MoviesSwiper.module.scss'
+import {API_URL} from "../../api/config.ts";
 
 export type MoviesListProps = {
-  movies: Movies[],
+  movies: TmdbMovie[],
   onSlideChange: (swiper: SwiperType) => void
 }
 
@@ -47,7 +48,7 @@ const MoviesSwiper = ({movies, onSlideChange}: MoviesListProps) => {
         >
           <img
             className={styles.swiperImage}
-            src={`https://what2watch-backend-production.up.railway.app/movies/poster?path=${m.poster_path}&size=w300`}
+            src={`${API_URL}/movies/poster?path=${m.poster_path}&size=w300`}
             alt={m.title}
           />
         </SwiperSlide>;

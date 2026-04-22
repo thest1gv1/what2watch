@@ -8,7 +8,6 @@ const Header = () => {
         <Link to={'/'}>
           <span className={styles.logo}>What2Watch</span>
         </Link>
-
       </div>
     </header>
   )

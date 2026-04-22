@@ -1,7 +1,8 @@
-import styles from "./QuestionCardList.module.scss";
+
 
 import type {Options} from "../../types/questions.ts";
 import QuestionCardItem from "../QuestionCardItem/QuestionCardItem.tsx";
+import styles from "./QuestionCardList.module.scss";
 
 
 type QuestionCardListProps = {

@@ -19,9 +19,15 @@ export function useQuiz(questions: Questions[]) {
 
   // Навигация шагов
   const handleNext = () => {
+    if (currentStep === questions.length - 1) {
+      setStep('prompt')
+      return
+    }
+
+
     setTimeout(() => {
       setCurrentStep(prev => Math.min(prev + 1, questions.length - 1));
-    }, 200);
+    }, 300);
   };
 
   const handleBack = () => setCurrentStep(prev => Math.max(prev - 1, 0));
@@ -44,12 +50,8 @@ export function useQuiz(questions: Questions[]) {
     }
 
     setAnswers(prev => ({...prev, [questionId]: [option]}));
+    handleNext()
 
-    if (currentStep === questions.length - 1) {
-      setStep('prompt')
-    } else {
-      handleNext()
-    }
   };
 
   const handleRetry = () => {

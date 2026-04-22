@@ -4,9 +4,11 @@ import type {Answers} from "../../types/answers.ts";
 import type {Questions} from "../../types/questions.ts";
 import {useEffect, useState} from "react";
 import {getAIPrompt} from "../../utils/getAIPrompt.ts";
-import type {Movie} from "../../pages/ResultPage/ResultPage.tsx";
+
 
 import {Film} from "lucide-react";
+import type {Movies} from "../../types/movies.ts";
+import {API_URL} from "../../api/config.ts";
 
 
 const LOADING_MESSAGES = [
@@ -20,7 +22,7 @@ const LOADING_MESSAGES = [
 type PromptEditorProps = {
   answers: Answers
   questions: Questions[]
-  onSubmit: (movies: Movie[]) => void
+  onSubmit: (movies: Movies[]) => void
 }
 
 const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
@@ -49,7 +51,7 @@ const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
     try {
       const fullPrompt = prompt + systemInstruction
 
-      const response = await fetch('https://what2watch-backend-production.up.railway.app/movies/recommend', {
+      const response = await fetch(`${API_URL}/movies/recommend`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: fullPrompt })
@@ -106,7 +108,6 @@ const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
         onChange={(e) => setPrompt(e.target.value)}
         rows={6}
       />
-
 
       <Button
         className={styles.promptButton}

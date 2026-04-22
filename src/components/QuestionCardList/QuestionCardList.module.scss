@@ -4,9 +4,28 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
+  max-height: 35vh;
+  overflow-y: auto;
+  padding-right: 8px;
+  min-height: 0;
 
   @include tablet {
     display: flex;
     flex-direction: column;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  // скроллбар — внутри .answersList!
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--gray-600);
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
   }
 }

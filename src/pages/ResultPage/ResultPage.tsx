@@ -1,20 +1,10 @@
 import styles from "./ResultsPage.module.scss";
 import Button from "../../components/Button/Button.tsx";
 import MovieCard from "../../components/MovieCard/MovieCard.tsx";
-
-
-export type Movie = {
-
-  title: string
-  originalTitle: string
-  year: number
-  genre: string
-  description: string
-  poster_path?: string
-}
+import type {Movies} from "../../types/movies.ts";
 
 type ResultsPageProps = {
-  movies: Movie[]
+  movies: Movies[]
   onRetry: () => void
 }
 

@@ -1,4 +1,5 @@
-import type {Movies} from "../../types/movies.ts";
+import {API_URL} from '../../api/config.ts';
+import type {TmdbMovie} from "../../types/movies.ts";
 import MoviesSwiper from "../../components/MoviesSwiper/MoviesSwiper.tsx";
 import Button from "../../components/Button/Button.tsx";
 import {useEffect, useState, type SetStateAction} from "react";
@@ -6,18 +7,17 @@ import {useNavigate} from "react-router-dom";
 
 import styles from './HomePage.module.scss';
 
-
 const HomePage = () => {
 
   const navigate = useNavigate()
 
-  const [swiperMovies, setSwiperMovies] = useState<Movies[]>([])
+  const [swiperMovies, setSwiperMovies] = useState<TmdbMovie[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
 
   const activeMovie = swiperMovies[activeIndex]
 
   async function getSwiperMoviesTrending() {
-    return fetch('https://what2watch-backend-production.up.railway.app/movies/trending')
+    return fetch(`${API_URL}/movies/trending`)
       .then(res => res.json())
   }
 
@@ -39,7 +39,8 @@ const HomePage = () => {
           <h1 className={styles.title}>Не знаешь что посмотреть <span className={styles.accent}>сегодня?</span>
           </h1>
           <p className={styles.description}>Ответь на несколько вопросов — получи идеальное
-            кино подобранное специально для тебя</p>
+            кино подобранное специально для тебя
+          </p>
           <Button
             className={styles.buttonHome}
             onClick={() => {
@@ -53,7 +54,7 @@ const HomePage = () => {
             <img
               key={activeMovie.id}
               className={styles.backdrop}
-              src={`https://what2watch-backend-production.up.railway.app/movies/poster?path=${activeMovie.backdrop_path}&size=original`}
+              src={`${API_URL}/movies/poster?path=${activeMovie.backdrop_path}&size=original`}
               alt=""
             />
           )}
