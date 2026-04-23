@@ -23,6 +23,8 @@
   border-radius: var(--border-radius-xs);
   color: var(--color-white);
   padding: 20px;
+  overflow: hidden;
+  resize: none;
 
   &:focus{
     outline: none;

@@ -2,7 +2,7 @@ import styles from "./PromptEditor.module.scss";
 import Button from "../Button/Button.tsx";
 import type {Answers} from "../../types/answers.ts";
 import type {Questions} from "../../types/questions.ts";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {getAIPrompt} from "../../utils/getAIPrompt.ts";
 
 
@@ -31,6 +31,7 @@ const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [messageIndex, setMessageIndex] = useState(0)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     if (!loading) return
@@ -53,8 +54,8 @@ const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
 
       const response = await fetch(`${API_URL}/movies/recommend`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: fullPrompt })
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({prompt: fullPrompt})
       })
 
       if (response.status === 429) {
@@ -75,6 +76,13 @@ const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
       setLoading(false)
     }
   }
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setPrompt(e.target.value)
+    e.target.style.height = 'auto'
+    e.target.style.height = e.target.scrollHeight + 'px'
+  }
+
   if (loading) {
     return (
       <div className={styles.loadingScreen}>
@@ -104,8 +112,9 @@ const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
       )}
       <textarea
         className={styles.promptTextarea}
+        ref={textareaRef}
         value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
+        onChange={handleChange}
         rows={6}
       />
 

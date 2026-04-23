@@ -27,7 +27,7 @@
   display: grid;
   gap: 16px;
   width: 100%;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 
   @include laptop {
     grid-template-columns: 1fr;

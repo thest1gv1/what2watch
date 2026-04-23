@@ -54,7 +54,7 @@ const HomePage = () => {
             <img
               key={activeMovie.id}
               className={styles.backdrop}
-              src={`${API_URL}/movies/poster?path=${activeMovie.backdrop_path}&size=original`}
+              src={`${API_URL}/movies/poster?path=${activeMovie.backdrop_path}&size=w780`}
               alt=""
             />
           )}

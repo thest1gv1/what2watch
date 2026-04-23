@@ -7,6 +7,10 @@ body {
   color: #fffdf9;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 p{
   color: var(--gray-700);
 }

@@ -5,6 +5,7 @@ export type Movies = {
   genre: string
   description: string
   poster_path?: string
+  backdrop_path?: string
   tmdb_id?: number
 }
 

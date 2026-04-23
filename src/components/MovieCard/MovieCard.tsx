@@ -1,4 +1,4 @@
-import {useState} from "react";
+
 
 import {useNavigate} from "react-router-dom";
 import styles from "./MovieCard.module.scss";
@@ -6,7 +6,7 @@ import type {Movies} from "../../types/movies.ts";
 import {API_URL} from "../../api/config.ts";
 
 const MovieCard = ({movie}: { movie: Movies }) => {
-  const [expanded, setExpanded] = useState(false)
+  // const [expanded, setExpanded] = useState(false)
 
   const navigate = useNavigate()
 
@@ -18,7 +18,8 @@ const MovieCard = ({movie}: { movie: Movies }) => {
           movie.poster_path && (
             <img
               className={styles.poster}
-              src={`${API_URL}/movies/poster?path=${movie.poster_path}`}
+              // src={`${API_URL}/movies/poster?path=${movie.poster_path}`}
+              src={`${API_URL}/movies/poster?path=${movie.backdrop_path || movie.poster_path}&size=w780`}
               alt={movie.title}
             />
           )
@@ -30,15 +31,10 @@ const MovieCard = ({movie}: { movie: Movies }) => {
         <span className={styles.year}>{movie.year}</span>
       </div>
       <h3 className={styles.movieTitle}>{movie.title}</h3>
-      <p className={`${styles.movieDescription} ${expanded ? styles.expanded : ''}`}>
+      <p className={styles.movieDescription}>
         {movie.description}
       </p>
-      <button
-        className={styles.toggle}
-        onClick={() => setExpanded(prev => !prev)}
-      >
-        {expanded ? 'Скрыть' : 'Читать далее'}
-      </button>
+
     </div>
 </li>
 )
