@@ -5,16 +5,24 @@ import ProgressBar from "../../components/ProgressBar/ProgressBar.tsx";
 import QuestionCardList
   from "../../components/QuestionCardList/QuestionCardList.tsx";
 import PromptEditor from "../../components/PromptEditor/PromptEditor.tsx";
-
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import styles from './QuizPage.module.scss'
 import type {Movies} from "../../types/movies.ts";
 import ResultsPage from "../ResultPage/ResultPage.tsx";
+import {fetchMovies} from "../../api/fetchMovies.ts";
 
 
 const QuizPage = () => {
 
-  const [movies, setMovies] = useState<Movies[]>([])
+  const [movies, setMovies] = useState<Movies[]>(() => {
+    const saved = sessionStorage.getItem('results')
+    return saved ? JSON.parse(saved) : []
+  })
+
+  const [lastPrompt, setLastPrompt] = useState(() =>
+    sessionStorage.getItem('last-prompt') ?? ''
+  )
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
 
   const {
     currentStep,
@@ -32,6 +40,45 @@ const QuizPage = () => {
 
 
   const hasAnswer = (answers[currentQuestion.id]?.length ?? 0) > 0
+
+  const handleSetMovies = (newMovies: Movies[], prompt: string) => {
+    setLastPrompt(prompt)
+    setMovies(newMovies)
+    sessionStorage.setItem('results', JSON.stringify(newMovies))
+    sessionStorage.setItem('last-prompt', prompt)
+    setStep('results')
+  }
+
+  const handleLoadMore = async () => {
+
+    // console.log('lastPrompt:', lastPrompt)
+    //
+    // if (!lastPrompt) {
+    //   console.warn('lastPrompt пустой — нельзя догрузить')
+    //   return
+    // }
+
+    setIsLoadingMore(true)
+    try {
+      const exclude = movies.map(m => m.originalTitle)
+      console.log('exclude:', exclude)
+      const newMovies = await fetchMovies(lastPrompt, exclude)
+      const merged = [...movies, ...newMovies.filter(
+        m => !movies.some(existing => existing.tmdb_id === m.tmdb_id)
+      )]
+      setMovies(merged)
+      sessionStorage.setItem('results', JSON.stringify(merged))
+    } finally {
+      setIsLoadingMore(false)
+    }
+  }
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem('results')
+    if (saved && JSON.parse(saved).length > 0) {
+      setStep('results')
+    }
+  }, [])
 
 
   return (
@@ -73,12 +120,12 @@ const QuizPage = () => {
             </Button>
 
 
-              <Button
-                onClick={handleNext}
-                disabled={!hasAnswer || !currentQuestion.multiSelect}
-              >
-                Продолжить
-              </Button>
+            <Button
+              onClick={handleNext}
+              disabled={!hasAnswer || !currentQuestion.multiSelect}
+            >
+              Продолжить
+            </Button>
 
           </div>
 
@@ -89,10 +136,7 @@ const QuizPage = () => {
         <PromptEditor
           answers={answers}
           questions={questions}
-          onSubmit={(movies) => {
-            setMovies(movies)
-            setStep('results')
-          }}
+          onSubmit={handleSetMovies}
         />
 
       )}
@@ -101,6 +145,8 @@ const QuizPage = () => {
         <ResultsPage
           movies={movies}
           onRetry={handleRetry}
+          onLoadMore={handleLoadMore}
+          isLoadingMore={isLoadingMore}
         />
       )}
     </section>

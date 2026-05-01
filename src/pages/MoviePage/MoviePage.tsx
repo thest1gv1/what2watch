@@ -3,7 +3,8 @@ import {useState, useEffect} from 'react'
 import {API_URL} from "../../api/config.ts"
 import styles from './MoviePage.module.scss'
 import Button from "../../components/Button/Button.tsx";
-import {Play} from "lucide-react";
+import {ArrowLeft, Play} from "lucide-react";
+import IconButton from "../../components/IconButton/IconButton.tsx";
 
 const MoviePage = () => {
   const {id} = useParams()
@@ -29,10 +30,10 @@ const MoviePage = () => {
   const year = movie.release_date?.split('-')[0]
   const hours = Math.floor(movie.runtime / 60)
   const minutes = movie.runtime % 60
-  const genres = movie.genres?.map((g: { name: string }) => g.name).join(', ')
+
   const country = movie.production_countries?.[0]?.name
   const cast = movie.credits?.cast?.slice(0, 12)
-  const director = movie.credits?.crew?.find(
+  const director = movie.credits?.crew?.filter(
     (p: { job: string }) => p.job === 'Director'
   )
   const trailer =
@@ -47,6 +48,12 @@ const MoviePage = () => {
 
   return (
     <div className={styles.page}>
+      <IconButton
+        className={styles.backBtn}
+        icon={<ArrowLeft size={20} />}
+        onClick={() => navigate(-1)}
+        label="Назад"
+      />
 
       {/* Backdrop */}
       <div className={styles.backdrop}>
@@ -58,10 +65,12 @@ const MoviePage = () => {
           />
         )}
         <div className={styles.backdropFade} />
-        <Button
+        <IconButton
           className={styles.backBtn}
+          icon={<ArrowLeft size={20} />}
           onClick={() => navigate(-1)}
-        >Назад</Button>
+          label="Назад"
+        />
       </div>
 
       <div className={styles.content}>
@@ -69,12 +78,15 @@ const MoviePage = () => {
         {/* Hero */}
         <div className={styles.hero}>
           {movie.poster_path && (
-            <img
-              className={styles.poster}
-              src={`${API_URL}/movies/poster?path=${movie.poster_path}&size=w342`}
-              alt={movie.title}
-              loading="lazy"
-            />
+            <div className={styles.posterWrapper}>
+              <img
+                className={styles.poster}
+                src={`${API_URL}/movies/poster?path=${movie.poster_path}&size=w342`}
+                alt={movie.title}
+                loading="lazy"
+              />
+              <div className={styles.posterFade} />
+            </div>
           )}
           <div className={styles.heroInfo}>
             <p className={styles.originalTitle}>{movie.original_title}</p>
@@ -85,17 +97,21 @@ const MoviePage = () => {
               <span className={styles.metaItem}>{hours} ч {minutes} мин</span>
               {country && <span className={styles.metaItem}>{country}</span>}
             </div>
-            <p className={styles.genres}>{genres}</p>
-            <p className={styles.genres}>{director.name}</p>
+            <div className={styles.genres}>
+              {movie.genres?.map((g: { id: number, name: string }) => (
+                <span key={g.id} className={styles.genreChip}>{g.name}</span>
+              ))}
+            </div>
+
             {trailer && (
-              <button
+              <Button
                 className={styles.trailerBtn}
                 onClick={() => setShowTrailer(true)}
               >
 
-                Посмотреть трейлер
+                Трейлер
                 <Play size={18} fill="white" />
-              </button>
+              </Button>
             )}
           </div>
 
@@ -106,6 +122,11 @@ const MoviePage = () => {
         <div className={styles.section}>
           <p className={styles.sectionLabel}>О фильме</p>
           <p className={styles.overview}>{movie.overview}</p>
+        </div>
+
+        <div className={styles.section}>
+          <p className={styles.sectionLabel}>Режиссеры</p>
+          <p className={styles.overview}> {director?.map((d: { id: number, name: string }) => d.name).join(', ')}</p>
         </div>
 
         {cast?.length > 0 && (

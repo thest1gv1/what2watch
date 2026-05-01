@@ -4,11 +4,9 @@ import type {Answers} from "../../types/answers.ts";
 import type {Questions} from "../../types/questions.ts";
 import {useEffect, useRef, useState} from "react";
 import {getAIPrompt} from "../../utils/getAIPrompt.ts";
-
-
 import {Film} from "lucide-react";
 import type {Movies} from "../../types/movies.ts";
-import {API_URL} from "../../api/config.ts";
+import {fetchMovies} from "../../api/fetchMovies.ts";
 
 
 const LOADING_MESSAGES = [
@@ -22,7 +20,7 @@ const LOADING_MESSAGES = [
 type PromptEditorProps = {
   answers: Answers
   questions: Questions[]
-  onSubmit: (movies: Movies[]) => void
+  onSubmit: (movies: Movies[], prompt: string) => void
 }
 
 const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
@@ -51,27 +49,11 @@ const PromptEditor = ({answers, questions, onSubmit}: PromptEditorProps) => {
     setError('')
     try {
       const fullPrompt = prompt + systemInstruction
-
-      const response = await fetch(`${API_URL}/movies/recommend`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({prompt: fullPrompt})
-      })
-
-      if (response.status === 429) {
-        setError('Лимит запросов исчерпан, попробуй через минуту')
-        return
-      }
-
-      if (!response.ok) {
-        setError('Сервис временно недоступен, попробуй позже')
-        return
-      }
-
-      const movies = await response.json()
-      onSubmit(movies)
-    } catch {
-      setError('Нет соединения с интернетом')
+      const movies = await fetchMovies(fullPrompt)
+      onSubmit(movies, fullPrompt)
+    } catch (e: any) {
+      if (e.message === 'rate_limit') setError('Лимит запросов исчерпан, попробуй через минуту')
+      else setError('Сервис временно недоступен, попробуй позже')
     } finally {
       setLoading(false)
     }

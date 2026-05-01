@@ -12,7 +12,9 @@ body.no-scroll {
 }
 
 p{
+  @include fluid-text(16, 14);
   color: var(--gray-700);
+  line-height: 1.7;
 }
 
 section {

@@ -44,6 +44,7 @@ const HomePage = () => {
           <Button
             className={styles.buttonHome}
             onClick={() => {
+              sessionStorage.removeItem('results')
               navigate('/quiz')
             }}
           >Найди свой фильм</Button>
@@ -67,8 +68,6 @@ const HomePage = () => {
           realIndex: SetStateAction<number>;
         }) => setActiveIndex(swiper.realIndex)}
       />
-
-
     </section>
   )
 }

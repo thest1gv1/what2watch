@@ -6,9 +6,16 @@ import type {Movies} from "../../types/movies.ts";
 type ResultsPageProps = {
   movies: Movies[]
   onRetry: () => void
+  onLoadMore: () => void
+  isLoadingMore: boolean
 }
 
-const ResultsPage = ({movies, onRetry}: ResultsPageProps) => {
+const ResultsPage = ({
+                       movies,
+                       onRetry,
+                       onLoadMore,
+                       isLoadingMore
+                     }: ResultsPageProps) => {
   return (
     <div className={styles.results}>
       <header className={styles.header}>
@@ -19,13 +26,19 @@ const ResultsPage = ({movies, onRetry}: ResultsPageProps) => {
       <ul className={styles.movieList}>
         {movies.map((movie) => (
           <MovieCard
-            key={movie.originalTitle}
+            key={movie.tmdb_id}
             movie={movie}
           />
         ))}
       </ul>
-
-      <Button onClick={onRetry}>Пройти заново</Button>
+      <div className={styles.actions}>
+        <Button onClick={onRetry}>Пройти заново</Button>
+        <Button
+          onClick={onLoadMore}
+          disabled={isLoadingMore}
+        >
+          {isLoadingMore ? 'Загружаем...' : 'Ещё фильмы'}
+        </Button></div>
     </div>
   )
 }

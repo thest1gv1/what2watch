@@ -1,5 +1,6 @@
 @use '../../styles/helpers' as *;
 
+// page
 .page {
   position: relative;
   min-height: 100vh;
@@ -7,74 +8,82 @@
   color: var(--color-white);
 }
 
+// backdrop
 .backdrop {
   position: relative;
   height: 420px;
-
 
   @include tablet {
     height: 320px;
   }
 
-  @include mobile {
-    height: 240px;
+  @include mobile-s {
+    display: none;
   }
 }
 
 .backdropImg {
   width: 100%;
   height: 100%;
+  border-radius: 12px;
   object-fit: cover;
   opacity: 0.4;
-  border-radius: 12px;
 }
 
 .backdropFade {
   position: absolute;
   inset: 0;
-
   background: linear-gradient(to bottom, transparent 30%, #000000 100%);
 }
 
 .backBtn {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 10px;
+  left: 10px;
   z-index: 10;
-
-  @include mobile{
-    font-size: 18px;
-  }
 }
 
+// content
 .content {
-  padding: 0 20px 40px;
-
-  @include tablet {
+  @include tablet-above {
     padding: 0 24px 40px;
   }
 
-  @include mobile {
+  @include mobile-s-above {
     padding: 0 16px 32px;
   }
 }
 
+// hero
 .hero {
-  display: flex;
-  gap: 20px;
-  align-items: flex-end;
-  margin-top: -180px;
-  margin-bottom: 28px;
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  margin-top: -180px;
+  margin-bottom: 28px;
 
-  @include mobile {
-    gap: 10px;
-    margin-top: -110px;
+  @include mobile-s {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 0;
+  }
+}
+
+.posterWrapper {
+  position: relative;
+  flex-shrink: 0;
+  overflow: visible;
+
+  @include mobile-s {
+    width: 100%;
   }
 }
 
 .poster {
+  display: block;
   width: 220px;
   height: 330px;
   border-radius: 12px;
@@ -82,72 +91,102 @@
   flex-shrink: 0;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
 
-  @include tablet {
-    width: 160px;
-    height: 240px;
+  @include mobile-s {
+    width: 100%;
+    height: fit-content;
+    border-radius: 0;
   }
-  @include mobile {
-    width: 110px;
-    height: 165px;
-  }
+}
 
+.posterFade {
+  display: none;
+
+  @include mobile-s {
+    position: absolute;
+    bottom: -2px;
+    left: -1px;
+    right: -1px;
+    display: block;
+    height: 70%;
+    background: linear-gradient(to bottom, transparent 10%, #000000 100%);
+    pointer-events: none;
+  }
 }
 
 .heroInfo {
   display: grid;
-  gap: 8px;
+  gap: 18px;
   justify-self: start;
 
-  @include mobile{
-    gap: 4px;
+  @include mobile-s {
+    position: relative;
+    z-index: 1;
   }
 }
 
 .originalTitle {
   font-size: 14px;
-  color: var(--gray-500);
-  text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 4px;
+  text-transform: uppercase;
+  color: var(--gray-500);
 }
 
-
+.title {
+  @include fluid-text(48, 24);
+  font-weight: 800;
+  text-transform: uppercase;
+}
 
 .meta {
   display: flex;
   flex-wrap: wrap;
-  font-size: 16px;
   gap: 12px;
+  font-size: 18px;
 
   @include laptop {
-    gap: 0 6px;
     font-size: 16px;
   }
 }
 
 .rating {
-  //  font-size: 14px;
   color: #eab308;
 }
 
 .metaItem {
-  //  font-size: 12px;
   color: var(--gray-500);
 }
 
 .genres {
-
-  font-size: 16px;
-  color: var(--gray-500);
-
-  @include mobile {
-    font-size: 12px;
-  }
-
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
+.genreChip {
+  padding: 4px 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 999px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.4); // прозрачный чёрный
+  backdrop-filter: blur(8px)
+}
 
+.trailerBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+  font-size: 18px;
+  cursor: pointer;
+  transition: var(--transition-duration);
 
+  @include mobile-s {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// sections
 .section {
   display: grid;
   gap: 12px;
@@ -155,13 +194,18 @@
 }
 
 .sectionLabel {
-  font-size: 14px;
-  text-transform: uppercase;
+  font-size: 16px;
   letter-spacing: 1.5px;
+  text-transform: uppercase;
   color: var(--gray-500);
-  margin-bottom: 10px;
 }
 
+.overview {
+
+
+}
+
+// cast
 .cast {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
@@ -171,14 +215,13 @@
     display: flex;
     overflow-x: auto;
     padding-bottom: 8px;
-    scroll-snap-type: x mandatory; // карточки защёлкиваются
-    -webkit-overflow-scrolling: touch; // плавный скролл на iOS
-
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 
     &::-webkit-scrollbar {
       display: none;
     }
-    scrollbar-width: none;
   }
 }
 
@@ -193,78 +236,56 @@
 .actorPhoto {
   width: 100%;
   aspect-ratio: 2/3;
-  object-fit: cover;
   border-radius: 8px;
+  object-fit: cover;
   margin-bottom: 4px;
 }
 
 .actorPhotoEmpty {
-  width: 100%;
-  aspect-ratio: 2/3;
-  background: #1a1a1a;
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  aspect-ratio: 2/3;
+  border-radius: 8px;
+  background: #1a1a1a;
   font-size: 24px;
   margin-bottom: 4px;
 }
 
 .actorName {
+  overflow: hidden;
   font-size: 14px;
   font-weight: 500;
-  color: var(--color-white);
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--color-white);
 }
 
 .actorRole {
-  font-size: 12px;
-  color: var(--gray-500);
-  white-space: nowrap;
   overflow: hidden;
+  font-size: 12px;
+  white-space: nowrap;
   text-overflow: ellipsis;
+  color: var(--gray-500);
 }
 
-
-.trailerBtn {
-
-  display: flex;
-  font-size: 18px;
-  align-items: center;
-  gap: 6px;
-  padding: 0 0 2px;
-  justify-self: start;
-  color: var(--color-white);
-  background-color: transparent;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition-duration);
-
-  &:hover {
-
-    color: var(--color-accent); // твой красный
-  }
-}
-
-
+// trailer modal
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.85);
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .modal {
+  position: relative;
   width: 90%;
   max-width: 1400px;
   aspect-ratio: 16/9;
-  position: relative;
 
   iframe {
     width: 100%;
